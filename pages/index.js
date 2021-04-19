@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Head from 'next/head';
 
 // styled-components
 import Games from '../comp/Games';
@@ -10,8 +11,13 @@ import api from '../api';
 import GameHeaderImage from '../comp/GameCard/GameHeaderImage';
 import GameDescription from '../comp/GameCard/GameDescription';
 import GameHeaderLink from '../comp/GameCard/GameHeaderLink';
+import GlobalStyle from '../comp/GlobalStyle';
+import AppWrapper from '../comp/AppWrapper';
+import Loading from '../comp/Loading';
 
-export default class extends React.Component {
+import LoadingGif from '../res/loading.gif';
+
+export default class App extends React.Component {
     constructor(props) {
         super(props);
 
@@ -23,12 +29,6 @@ export default class extends React.Component {
 
         this.onScroll = this.onScroll.bind(this);
     }
-    // static async getInitialProps({}) {
-
-    //     // return {
-    //     //     games: data.results
-    //     // };
-    // }
 
     async componentDidMount() {
         window.addEventListener('scroll', this.onScroll);
@@ -44,7 +44,7 @@ export default class extends React.Component {
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.onScroll)
+        window.removeEventListener('scroll', this.onScroll);
     }
 
     setAsyncState(newState) {
@@ -54,40 +54,50 @@ export default class extends React.Component {
     onScroll(event) {
         const doc = event.target.scrollingElement;
 
-        if (doc.scrollTop + doc.clientHeight >= doc.scrollHeight) {
+        // 150 is height of loading gif
+        if (doc.scrollTop + doc.clientHeight >= doc.scrollHeight - 150) {
             if (!this.state.isLoading) this.loadMoreGames();
         }
     }
 
     async loadMoreGames() {
-        await this.setAsyncState({isLoading: true});
-        
+        await this.setAsyncState({ isLoading: true });
+
         const data = await api.next(this.state.next);
         console.log(data);
         this.setState({
             games: this.state.games.concat(data.results),
             next: data.next,
             isLoading: false
-        })
+        });
     }
 
     render() {
         return (
-            <Games id='games'>
-                {this.state.games && this.state.games.map(game => (
-                    <GameCard key={game.id}>
-                        <GameHeaderImage src={game.background_image} alt='Game preview'></GameHeaderImage>
-                        <Link href={'/game/' + game.id} >
-                                <GameHeaderLink>{game.name}</GameHeaderLink>
-                        </Link>
+            <React.Fragment>
+                <GlobalStyle />
+                <AppWrapper>
+                    <Games id='games'>
+                        <Head>
+                            <link rel='shortcut icon' href='/public/favicon.ico' />
+                        </Head>
+                        {this.state.games && this.state.games.map(game => (
+                            <GameCard key={game.id}>
+                                <GameHeaderImage src={game.background_image} alt='Game preview'></GameHeaderImage>
+                                <Link href={'/game/' + game.id} >
+                                    <GameHeaderLink>{game.name}</GameHeaderLink>
+                                </Link>
 
-                        <GameDescription>
-                            <div>Release date: {new Date(game.released).toLocaleDateString()}</div>
-                            <div>Meta critic: {game.metacritic}</div>
-                        </GameDescription>
-                    </GameCard>
-                ))}
-            </Games>
-        )
+                                <GameDescription>
+                                    <div>Release date: {new Date(game.released).toLocaleDateString()}</div>
+                                    <div>Meta critic: {game.metacritic}</div>
+                                </GameDescription>
+                            </GameCard>
+                        ))}
+                    </Games>
+                    <Loading src={LoadingGif} />
+                </AppWrapper>
+            </React.Fragment>
+        );
     }
 }

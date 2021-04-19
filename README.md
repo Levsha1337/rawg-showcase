@@ -52,7 +52,7 @@ Based on next.js
 
 ✅ Код на ES6 (без TypeScript)
 
-❌ Адаптивная mobile-first вёрстка
+✅ Адаптивная mobile-first вёрстка
 
 ✅ Сборка на webpack (ваш пример должен запуститься через npm i && npm start)
 

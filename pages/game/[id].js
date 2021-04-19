@@ -13,5 +13,5 @@ export default function Game() {
                 <a>Back</a>
             </Link>
         </div>
-    )
+    );
 }

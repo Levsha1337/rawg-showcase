@@ -6,9 +6,14 @@ export default styled.div`
     justify-content: flex-start;
     align-items: center;
 
-    width: 300px;
-    height: 400px;
-    border: solid 1px black;
+    width: 250px;
+    height: 350px;
+    // border: solid 1px black;
+    border-radius: 15px;
+    background: rgba(0,0,0,0.2);
     padding: 0px;
     margin: 10px;
+    color: white;
+    overflow: hidden;
+    box-shadow: 0px 0px 4px 4px rgba(0,0,0, 0.1);
 `;

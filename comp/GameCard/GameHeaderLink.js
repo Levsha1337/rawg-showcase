@@ -1,9 +1,17 @@
 import styled from 'styled-components';
 
 export default styled.a`
-    color: black;
+    // color: #dac9ba;
+    color: white;
     cursor: pointer;
     display: block;
-    font-size: 24px;
     text-align: center;
+
+    font-size: 24px;
+    font-weight: 700;
+
+    &:hover {
+        color: lightblue;
+        transition: 0.15s;
+    }
 `;
