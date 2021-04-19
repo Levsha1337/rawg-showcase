@@ -3,12 +3,11 @@ import styled from 'styled-components';
 export default styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
 
     width: 250px;
-    height: 350px;
-    // border: solid 1px black;
+    height: 300px;
     border-radius: 15px;
     background: rgba(0,0,0,0.2);
     padding: 0px;

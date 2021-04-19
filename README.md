@@ -4,6 +4,22 @@ Based on next.js
 
 ---
 
+## Installation & running
+
+First of all you need to create `config.json` in app folder.
+
+Inside config you need to define rawg.io API-key:
+
+```
+{
+    "api_key": "YOUR_API_KEY"
+}
+```
+
+Then just run `npm i && npm start` to install all of node modules, create production-ready build and run http server on port 3000.
+
+---
+
 ## Technical Requirments
 
 ---
@@ -14,11 +30,11 @@ Based on next.js
 
 ✅ Пагинация (в идеале, бесконечный скролл)
 
-❌ Сортировка по: рейтингу и дате релиза игры (в обе стороны)
+✅ Сортировка по: рейтингу и дате релиза игры (в обе стороны)
 
-❌ Фильтрация по платформам
+✅ Фильтрация по платформам
 
-❌ Поиск по названию
+✅ Поиск по названию
 
 ---
 
