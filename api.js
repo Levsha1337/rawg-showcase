@@ -29,5 +29,17 @@ export default {
         }
         
         return platforms;
+    },
+
+    async getScreenshots(game) {
+        let res = await this.get(`/games/${game}/screenshots`);
+        let screens = res.results;
+
+        while (res.next !== null) {
+            res = await this.next(res.next);
+            screens = screens.concat(res.results);
+        }
+        
+        return screens.filter(screen => !screen.is_deleted);
     }
 };

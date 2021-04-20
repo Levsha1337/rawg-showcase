@@ -9,27 +9,43 @@ import GameName from '../../comp/Slug/GameName';
 import Loading from '../../comp/Loading';
 import LoadingGif from '../../res/loading.gif';
 import AppWrapper from '../../comp/AppWrapper';
+import Screenshot from '../../comp/Slug/Screenshot';
+import ScreenshotsSlider from '../../comp/Slug/ScreenshotsSlider';
+import SliderButton from '../../comp/Slug/ScreenshotSliderButton';
+import SliderButtonsWrapper from '../../comp/Slug/SliderButtonsWrapper';
 
 export default function Game() {
     const router = useRouter();
     const [state, setState] = useState({ loading: true });
+    const [slider, setSlider] = useState(0);
+    const [screenshots, setScreenshots] = useState({ loading: true });
 
+    // game info
     useEffect(() => {
-        console.log('----------');
-        console.log('in effect');
         if (!router.isReady) {
             return;
         }
-        console.log('router ready');
-        console.log('id: ' + router.query.id);
-        console.log('state: ');
-        console.log(state);
 
         if (state.loading) {
             api.get('/games/' + router.query.id).then(r => setState(r));
         }
-
     }, [router.isReady, state]);
+
+    // game screenshots
+    useEffect(() => {
+        if (!router.isReady) {
+            return;
+        }
+
+        if (screenshots.loading) {
+            api.getScreenshots(router.query.id).then(r => setScreenshots(r));
+        }
+    }, [router.isReady, screenshots]);
+
+    // game screenshots slider
+    useEffect(() => {
+
+    }, [slider]);
 
     return (
         <React.Fragment>
@@ -51,6 +67,19 @@ export default function Game() {
                                 Website
                             </Button>
                         </Link>
+                        <SliderButtonsWrapper>
+                            <SliderButton onClick={() => setSlider(slider === 0 ? screenshots.length-1 : slider-1)}>{'<'}</SliderButton>
+                            <SliderButton onClick={() => setSlider(slider === screenshots.length-1 ? 0 : slider + 1)}>{'>'}</SliderButton>
+                        </SliderButtonsWrapper>
+                        {screenshots.loading ? 
+                            <Loading src={LoadingGif} />
+                            :
+                            <ScreenshotsSlider>
+                                {
+                                    <Screenshot key={screenshots[slider].id} src={screenshots[slider].image} alt='Screenshot'/>
+                                }
+                            </ScreenshotsSlider>
+                        }
                     </GameProfile>
                 }
             </AppWrapper>
