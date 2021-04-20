@@ -205,7 +205,7 @@ export default class App extends React.Component {
                                     game.background_image ? game.background_image : PictureNotFound
                                 } alt='Game preview'></GameHeaderImage>
                                 <Link passHref href={'/game/' + game.id} >
-                                    <GameHeaderLink>{game.name}</GameHeaderLink>
+                                    <GameHeaderLink target='_blank'>{game.name}</GameHeaderLink>
                                 </Link>
 
                                 <GameDescription>
