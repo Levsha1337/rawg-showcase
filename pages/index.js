@@ -37,17 +37,17 @@ export default class App extends React.Component {
 
         // sort variants
         this.orderByList = [
-            { query: undefined, text: 'Без сортировки' },
-            { query: 'rating', text: 'По возрастанию рейтинга' },
-            { query: '-rating', text: 'По убыванию рейтинга' },
+            { query:   undefined, text: 'Без сортировки' },
+            { query:    'rating', text: 'По возрастанию рейтинга' },
+            { query:   '-rating', text: 'По убыванию рейтинга' },
             { query: '-released', text: 'От новых релизов' },
-            { query: 'released', text: 'От старых релизов' }
+            { query:  'released', text: 'От старых релизов' }
         ];
 
         // query options for rawg api requests
         this.queryOptions = {
-            ordering: undefined,
             platforms: undefined,
+            ordering: undefined,
             search: undefined
         };
 
@@ -57,8 +57,12 @@ export default class App extends React.Component {
     }
 
     async componentDidMount() {
+        // infinite scroll
         window.addEventListener('scroll', this.onScroll);
+
+        // auto focus on game search field
         document.addEventListener('keydown', this.documentKeydownListener);
+
         await this.loadGames();
         this.setState({
             platformList: await api.getPlatforms()
@@ -172,12 +176,17 @@ export default class App extends React.Component {
                 <GlobalStyle />
                 <AppWrapper ref={this.appWrapper}>
                     <SearchOptions>
-                        <GameSearch ref={this.search} onChange={this.onNameSearchChanged} placeholder='🔍 Search by game name'/>
+                        <GameSearch ref={this.search} 
+                            onChange={this.onNameSearchChanged} 
+                            placeholder='🔍 Search by game name'
+                        />
+
                         <SortSelector onChange={this.onSortSelected}>
                             {this.orderByList.map((el, i) =>
                                 <option value={i} key={i}>{el.text}</option>
                             )}
                         </SortSelector>
+
                         <PlatformSelector>{this.state.platformList.length !== 0 ?
                             this.state.platformList.map(el => <div key={el.id}>
                                 <Checkbox type='checkbox' value={el.id} onChange={this.onPlatformSelected}></Checkbox>
@@ -196,8 +205,9 @@ export default class App extends React.Component {
                             <GameCard key={game.id}>
                                 <GameHeaderImage src={
                                     game.background_image ? game.background_image : PictureNotFound
-                                } alt='Game preview'></GameHeaderImage>
-                                <Link passHref href={'/game/' + game.id} >
+                                } alt='Game preview' />
+
+                                <Link passHref href={'/game/' + game.id}>
                                     <GameHeaderLink target='_blank'>{game.name}</GameHeaderLink>
                                 </Link>
 
@@ -208,6 +218,7 @@ export default class App extends React.Component {
                             </GameCard>
                         ))}
                     </Games>
+                    
                     { this.state.next !== null && <Loading src={LoadingGif} /> }
                 </AppWrapper>
             </React.Fragment>
