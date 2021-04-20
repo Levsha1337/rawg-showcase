@@ -6,21 +6,14 @@ import Head from 'next/head';
 import api from '../api';
 
 // styled-components
-import GlobalStyle from '../comp/GlobalStyle';
-import AppWrapper from '../comp/AppWrapper';
-import Games from '../comp/Games';
+import GlobalStyle from '../styled/Global.style';
+import AppWrapper from '../styled/AppWrapper';
+import Games from '../styled/Games';
 
-import GameCard from '../comp/GameCard/GameCard';
-import GameHeaderImage from '../comp/GameCard/GameHeaderImage';
-import GameDescription from '../comp/GameCard/GameDescription';
-import GameHeaderLink from '../comp/GameCard/GameHeaderLink';
+import { GameCard, GameHeaderImage, GameDescription, GameHeaderLink } from '../styled/GameCard.style';
+import { SearchOptions, GameSearch, SortSelector, PlatformSelector, Checkbox } from '../styled/Search.style';
 
-import SearchOptions from '../comp/SearchOptions';
-import GameSearch from '../comp/GameSearch';
-import SortSelector from '../comp/SortSelector';
-import PlatformSelector from '../comp/PlatformSelector';
-import Checkbox from '../comp/Checkbox';
-import Loading from '../comp/Loading';
+import Loading from '../styled/Loading';
 
 import PictureNotFound from '../res/nopic.png';
 import LoadingGif from '../res/loading.gif';

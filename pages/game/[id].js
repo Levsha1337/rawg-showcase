@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import GlobalStyle from '../../comp/GlobalStyle';
-import Button from '../../comp/Slug/Button';
+import GlobalStyle from '../../styled/Global.style';
+import Button from '../../styled/Slug/Button';
 import Link from 'next/link';
-import GameProfile from '../../comp/Slug/GameProfile';
+import GameProfile from '../../styled/Slug/GameProfile';
 import api from '../../api';
-import GameName from '../../comp/Slug/GameName';
-import Loading from '../../comp/Loading';
+import GameName from '../../styled/Slug/GameName';
+import Loading from '../../styled/Loading';
 import LoadingGif from '../../res/loading.gif';
-import AppWrapper from '../../comp/AppWrapper';
-import Screenshot from '../../comp/Slug/Screenshot';
-import ScreenshotsSlider from '../../comp/Slug/ScreenshotsSlider';
-import SliderButton from '../../comp/Slug/ScreenshotSliderButton';
-import SliderButtonsWrapper from '../../comp/Slug/SliderButtonsWrapper';
+import AppWrapper from '../../styled/AppWrapper';
+import Screenshot from '../../styled/Slug/Screenshot';
+import ScreenshotsSlider from '../../styled/Slug/ScreenshotsSlider';
+import SliderButton from '../../styled/Slug/ScreenshotSliderButton';
+import SliderButtonsWrapper from '../../styled/Slug/SliderButtonsWrapper';
 
 export default function Game() {
     const router = useRouter();

@@ -1,18 +1,18 @@
-import config from './config.json';
-const key = config.api_key;
-const req_key = '?key=' + key;
+import { api_key as key } from './config.json';
 const base = 'https://api.rawg.io/api';
 
 export default {
+    _encodeQueryString(object) {
+        return '?' + new URLSearchParams({
+            ...object,
+            key
+        });
+    },
+
     get(link, keyValues) {
-        let kvs = '';
-        if (keyValues != undefined) {
-            kvs = Object.keys(keyValues)
-                .map(key => `&${key}=${keyValues[key]}`)
-                .join('');
-        }
+        const kvs = this._encodeQueryString(keyValues);
         
-        return fetch(base + link + req_key + kvs).then(r => r.json());
+        return fetch(base + link + kvs).then(r => r.json());
     },
     
     next(link) {
