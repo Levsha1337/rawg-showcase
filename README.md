@@ -58,7 +58,7 @@ Then just run `npm i && npm start` to install all of node modules, create produc
 
 ✅ Ссылка на сайт игры
 
-❌ Слайдер со скриншотами игры
+✅ Слайдер со скриншотами игры
 
 ---
 
